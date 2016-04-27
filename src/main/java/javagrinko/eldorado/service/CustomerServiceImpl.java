@@ -20,8 +20,8 @@ public class CustomerServiceImpl implements CustomerService {
 
     private Customers customers;
     private Statistics statistics;
-    private Map<Order, Integer> orderCustomerMap = new HashMap<>();
-    private Map<Integer, Double> totalValues = new HashMap<>();
+    private Map<Order, Integer> orderCustomerMap;
+    private Map<Integer, Double> totalValues;
 
     @Override
     public void parse(File file) {
@@ -36,6 +36,8 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Statistics getStatistics() {
+        orderCustomerMap = new HashMap<>();
+        totalValues = new HashMap<>();
         statistics = new Statistics();
         customers.getCustomers().forEach(
                 a -> a.getOrders().getOrders().forEach(
