@@ -12,4 +12,8 @@ public class Position {
     public double getPrice() {
         return price;
     }
+
+    public int getCount() {
+        return count;
+    }
 }
