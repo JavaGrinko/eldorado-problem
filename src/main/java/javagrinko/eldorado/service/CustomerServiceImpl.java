@@ -1,20 +1,19 @@
 package javagrinko.eldorado.service;
 
+import javafx.util.Pair;
 import javagrinko.eldorado.model.Customers;
 import javagrinko.eldorado.model.Order;
 import javagrinko.eldorado.model.Statistics;
 import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
-import java.util.DoubleSummaryStatistics;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
-@Component
+@Service
 @Scope("session")
 public class CustomerServiceImpl implements CustomerService {
 
@@ -63,10 +62,18 @@ public class CustomerServiceImpl implements CustomerService {
         statistics.setExpectedMeanValue(summaryStatistics.getAverage());
         statistics.setBestCustomerId(totalValues.entrySet().stream()
                 .sorted(Map.Entry.<Integer, Double>comparingByValue().reversed())
-                .limit(1)
                 .findFirst().get().getKey());
 
 
         return statistics;
+    }
+
+    @Override
+    public List<Pair<Integer, Double>> getCustomers(double minTotalValue) {
+        List<Pair<Integer, Double>> pairs = new ArrayList<>();
+        totalValues.keySet().stream()
+                .filter(k -> totalValues.get(k) > minTotalValue)
+                .forEach(k -> pairs.add(new Pair<>(k, totalValues.get(k))));
+        return pairs;
     }
 }

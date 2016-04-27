@@ -39,16 +39,16 @@ public class CustomersUploader implements Upload.Receiver, Upload.SucceededListe
     }
 
     public void uploadFailed(Upload.FailedEvent event) {
-        new Notification("Error",
-                "Upload failed!",
+        new Notification("Ошибка",
+                "Ошибка загрузки файла!",
                 Notification.Type.TRAY_NOTIFICATION)
                 .show(Page.getCurrent());
     }
 
     @Override
     public void uploadSucceeded(Upload.SucceededEvent event) {
-        new Notification("Thank you!",
-                "Upload succeeded!",
+        new Notification("Спасибо!",
+                "Загрузка успешно завершена!",
                 Notification.Type.TRAY_NOTIFICATION)
                 .show(Page.getCurrent());
         customerService.parse(file);
