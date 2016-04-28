@@ -30,6 +30,7 @@ public class CustomersUploader implements Upload.Receiver, Upload.SucceededListe
         try {
             String folderName = VaadinService.getCurrent()
                     .getBaseDirectory().getAbsolutePath() + "/uploads/";
+            new File(folderName).mkdir();
             file = new File(folderName + filename);
             fos = new FileOutputStream(file);
         } catch (Exception e) {

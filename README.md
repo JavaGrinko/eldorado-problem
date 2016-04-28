@@ -1,22 +1,37 @@
-<customers>
-		<customer>
-			<id>233658</id>
-			<name>����� ������������</name>
-			<orders>
-				<order>
-					<id>233658</id>
-					<positions>
-						<position>
-							<id>233658</id>
-							<price>30.0</price>
-							<count>5</count>
-						</position>
-					</positions>
-				</order>
-			</orders>
-		</customer>
-</customers>
+## Тестовое задание Eldorado
 
+**Расположение дистрибутива приложения:** build/distributions/eldorado-problem.tar
+**Требования:** Java 8
+Для старта приложения необходимо запустить bat или bash скрипт в папке bin архива
+В приложении используется **Embedded Tomcat**, поэтому для работы с приложением необходимо только ввести адрес в адресной строке:
+http://localhost:1777
+
+**Тест:** src/test/java/javagrinko/EldoradoProblemApplicationTests.java
+Содержит два теста: один проверяет работу статистики, а второй тестирует корректность работы многопоточного парсера xml
+
+### Исходный документ
+```xml
+<customers>
+	<customer>
+		<id>233658</id>
+		<name>Username</name>
+		<orders>
+			<order>
+				<id>233658</id>
+				<positions>
+					<position>
+						<id>233658</id>
+						<price>30.0</price>
+						<count>5</count>
+					</position>
+				</positions>
+			</order>
+		</orders>
+	</customer>
+</customers>
+```
+### XSD-схема исходного документа
+```xml
 <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:element name="customers">
     <xs:complexType>
@@ -61,3 +76,4 @@
     </xs:complexType>
   </xs:element>
 </xs:schema>
+```
