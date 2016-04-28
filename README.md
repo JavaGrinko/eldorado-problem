@@ -11,6 +11,7 @@
 [http://localhost:1777](http://localhost:1777)
 
 **Тест:** src/test/java/javagrinko/EldoradoProblemApplicationTests.java
+
 Содержит два теста: один проверяет работу статистики, а второй тестирует корректность работы многопоточного парсера xml
 
 ### Исходный документ
