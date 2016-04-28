@@ -1,10 +1,8 @@
 package javagrinko.eldorado.aspect;
 
-import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 
@@ -27,16 +25,24 @@ public class ThreadSafeAspect {
     @Around("readLockPointcut()")
     public Object readLock(ProceedingJoinPoint joinPoint) throws Throwable {
         long stamp = stampedLock.readLock();
-        Object o = joinPoint.proceed();
-        stampedLock.unlockRead(stamp);
+        Object o;
+        try {
+            o = joinPoint.proceed();
+        } finally {
+            stampedLock.unlockRead(stamp);
+        }
         return o;
     }
 
     @Around("writeLockPointcut()")
     public Object writeLock(ProceedingJoinPoint joinPoint) throws Throwable {
         long stamp = stampedLock.writeLock();
-        Object o = joinPoint.proceed();
-        stampedLock.unlockWrite(stamp);
+        Object o;
+        try {
+            o = joinPoint.proceed();
+        } finally {
+            stampedLock.unlockWrite(stamp);
+        }
         return o;
     }
 }
